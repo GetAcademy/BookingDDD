@@ -32,14 +32,9 @@
             return Result<BookingPeriod>.Success(duration);
         }
 
-        public bool IsOverlapping(Booking booking)
+        public bool IsOverlapping(BookingPeriod bookingPeriod)
         {
-            return IsOverlapping(booking.Start, booking.End);
-        }
-
-        public bool IsOverlapping(DateTime start, DateTime end)
-        {
-            return start < End && end > Start;
+            return bookingPeriod.Start < End && bookingPeriod.End > Start;
         }
     }
 }

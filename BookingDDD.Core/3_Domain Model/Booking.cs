@@ -22,5 +22,10 @@
         {
             IsCancelled = true;
         }
+
+        public bool IsOverlapping(Booking otherBooking)
+        {
+            return this.BookingPeriod.IsOverlapping(otherBooking.BookingPeriod)
+        }
     }
 }

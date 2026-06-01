@@ -1,7 +1,7 @@
-﻿using BookingTransactionScript.Core._2_DomainServices;
-using BookingTransactionScript.Core._3_Domain_Model;
+﻿using BookingDDD.Core._2_DomainServices;
+using BookingDDD.Core._3_Domain_Model;
 
-namespace BookingTransactionScript.Core._1_ApplicationServices
+namespace BookingDDD.Core._1_ApplicationServices
 {
     public class BookingService
     {
@@ -12,25 +12,8 @@ namespace BookingTransactionScript.Core._1_ApplicationServices
             _bookingRepository = bookingRepository;
         }
 
-        public async Task<Result<Booking>> BookAsync(DateTime start, DateTime end)
+        public async Task<Result<Booking>> BookAsync(BookingPeriod bookingPeriod)
         {
-            var validationResult = await ValidateBooking(start, end);
-            if (!validationResult.IsSuccess) return validationResult;
-
-            var newBooking = new Booking(start, end);
-            await _bookingRepository.AddAsync(newBooking);
-            return Result<Booking>.Success(newBooking);
-        }
-
-        private async Task<Result<Booking>> ValidateBooking(DateTime start, DateTime end)
-        {
-            var bookingPeriodResult = BookingPeriod.Create(start, end);
-            if (!bookingPeriodResult.IsSuccess)
-            {
-                return Result<Booking>.Fail(bookingPeriodResult.ErrorMessage!);
-            }
-
-            var bookingPeriod = bookingPeriodResult.Value!;
             var existingBookings = await _bookingRepository.GetAllAsync();
             var bookingCollection = new BookingCollection(existingBookings);
             if (bookingCollection.IsOverlapping(bookingPeriod))
@@ -38,7 +21,10 @@ namespace BookingTransactionScript.Core._1_ApplicationServices
                 return Result<Booking>.Fail("Booking overlaps with an existing booking.");
             }
 
-            return Result<Booking>.Success(null);
+            var newBooking = new Booking(bookingPeriod);
+            await _bookingRepository.AddAsync(newBooking);
+            return Result<Booking>.Success(newBooking);
         }
+
     }
 }

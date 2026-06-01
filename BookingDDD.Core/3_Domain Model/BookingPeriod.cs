@@ -1,4 +1,4 @@
-﻿namespace BookingTransactionScript.Core._3_Domain_Model
+﻿namespace BookingDDD.Core._3_Domain_Model
 {
     public class BookingPeriod
     {

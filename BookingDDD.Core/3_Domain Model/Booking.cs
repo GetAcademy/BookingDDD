@@ -1,22 +1,20 @@
-﻿namespace BookingTransactionScript.Core._3_Domain_Model
+﻿namespace BookingDDD.Core._3_Domain_Model
 {
     public class Booking
     {
         public Guid Id { get;  }
-        public DateTime Start { get; }
-        public DateTime End { get; }
+        public BookingPeriod BookingPeriod { get; }
         public bool IsCancelled { get; private set; }
 
-        public Booking(DateTime start, DateTime end)
-        : this(Guid.NewGuid(), start, end)
+        public Booking(BookingPeriod bookingPeriod)
+        : this(Guid.NewGuid(), bookingPeriod)
         {
         }
 
-        public Booking(Guid id, DateTime start, DateTime end, bool isCancelled = false)
+        public Booking(Guid id, BookingPeriod bookingPeriod, bool isCancelled = false)
         {
             Id = id;
-            Start = start;
-            End = end;
+            BookingPeriod = bookingPeriod;
             IsCancelled = isCancelled;
         }
 

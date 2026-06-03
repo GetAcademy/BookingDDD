@@ -9,16 +9,17 @@ namespace BookingDDD.Core._1_ApplicationServices
 
         private readonly IBookingRepository _bookingRepository;
         private readonly OpeningHours _openingHours = new(8, 16);
+        private IResourceRepository _resourceRepository;
 
-        public BookingService(IBookingRepository bookingRepository)
+        public BookingService(IBookingRepository bookingRepository, IResourceRepository resourceRepository)
         {
+            _resourceRepository = resourceRepository;
             _bookingRepository = bookingRepository;
         }
 
         public async Task<Result<Booking>> BookAsync(BookingPeriod period)
         {
-            var existingBookings = await _bookingRepository.GetAllAsync();
-            var resource = new Resource(ResourceId, _openingHours, existingBookings);
+            var resource = await _resourceRepository.GetAsync(ResourceId);
             var bookingResult = resource.Book(period);
             if (!bookingResult.IsSuccess)
             {

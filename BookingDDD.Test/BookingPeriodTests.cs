@@ -60,7 +60,7 @@ namespace BookingDDD.Test
             var first = TestPeriods.Create(10, 12);
             var second = TestPeriods.Create(11, 13);
 
-            var overlaps = first.IsOverlapping(second);
+            var overlaps = first.Overlaps(second);
 
             Assert.That(overlaps, Is.True);
         }
@@ -71,7 +71,7 @@ namespace BookingDDD.Test
             var first = TestPeriods.Create(10, 11);
             var second = TestPeriods.Create(11, 12);
 
-            var overlaps = first.IsOverlapping(second);
+            var overlaps = first.Overlaps(second);
 
             Assert.That(overlaps, Is.False);
         }

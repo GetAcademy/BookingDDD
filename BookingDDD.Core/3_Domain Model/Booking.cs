@@ -33,14 +33,14 @@
             return Result<Booking>.Success(this);
         }
 
-        public bool IsOverlapping(Booking otherBooking)
+        public bool Overlaps(Booking otherBooking)
         {
-            return IsOverlapping(otherBooking.Period);
+            return Overlaps(otherBooking.Period);
         }
 
-        public bool IsOverlapping(BookingPeriod bookingPeriod)
+        public bool Overlaps(BookingPeriod bookingPeriod)
         {
-            return Period.IsOverlapping(bookingPeriod);
+            return Period.Overlaps(bookingPeriod);
         }
     }
 }

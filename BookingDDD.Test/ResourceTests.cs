@@ -32,7 +32,7 @@ namespace BookingDDD.Test
         }
 
         [Test]
-        public void Book_ReturnsFailure_WhenPeriodOverlapsActiveBooking()
+        public void Cannot_book_resource_when_resource_is_uavailable_in_period()
         {
             var existing = new Booking(TestPeriods.Create(10, 12));
             var resource = CreateResource(existing);

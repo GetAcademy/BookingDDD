@@ -2,30 +2,40 @@
 {
     public class Booking
     {
-        public Guid Id { get;  }
-        public BookingPeriod BookingPeriod { get; }
-        public bool IsCancelled { get; private set; }
+        public Guid Id { get; }
+        public BookingPeriod Period { get; }
+        public BookingStatus Status { get; private set; }
+        public bool IsActive => Status == BookingStatus.Active;
 
-        public Booking(BookingPeriod bookingPeriod)
-        : this(Guid.NewGuid(), bookingPeriod)
+        public Booking(BookingPeriod period)
+            : this(Guid.NewGuid(), period)
         {
         }
 
-        public Booking(Guid id, BookingPeriod bookingPeriod, bool isCancelled = false)
+        public Booking(
+            Guid id,
+            BookingPeriod period,
+            BookingStatus status = BookingStatus.Active)
         {
             Id = id;
-            BookingPeriod = bookingPeriod;
-            IsCancelled = isCancelled;
+            Period = period;
+            Status = status;
         }
 
-        public void Cancel()
+        public Result<Booking> Cancel(DateTime now)
         {
-            IsCancelled = true;
+            if (now >= Period.Start)
+            {
+                return Result<Booking>.Fail("Cannot cancel booking after it has started.");
+            }
+
+            Status = BookingStatus.Cancelled;
+            return Result<Booking>.Success(this);
         }
 
         public bool IsOverlapping(Booking otherBooking)
         {
-            return this.BookingPeriod.IsOverlapping(otherBooking.BookingPeriod)
+            return Period.IsOverlapping(otherBooking.Period);
         }
     }
 }

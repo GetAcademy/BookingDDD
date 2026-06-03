@@ -1,6 +1,6 @@
 ﻿namespace BookingDDD.Core._3_Domain_Model
 {
-    public class BookingPeriod
+    public record BookingPeriod
     {
         public DateTime Start { get; }
         public DateTime End { get; }
@@ -23,19 +23,18 @@
                 return Result<BookingPeriod>.Fail("Only whole hours can be booked.");
             }
 
-            if (start.Hour < 8 || end.Hour > 16)
-            {
-                return Result<BookingPeriod>.Fail("Booking must be within opening hours.");
-            }
-
-            var duration = new BookingPeriod(start, end);
-            return Result<BookingPeriod>.Success(duration);
+            var period = new BookingPeriod(start, end);
+            return Result<BookingPeriod>.Success(period);
         }
 
-        public bool IsOverlapping(BookingPeriod bookingPeriod)
+        public bool IsOverlapping(BookingPeriod other)
         {
-            return bookingPeriod.Start < End && bookingPeriod.End > Start;
+            return other.Start < End && other.End > Start;
+        }
+
+        public bool IsOverlapping(Booking booking)
+        {
+            return IsOverlapping(booking.Period);
         }
     }
 }
- 

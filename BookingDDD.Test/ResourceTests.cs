@@ -86,7 +86,7 @@ namespace BookingDDD.Test
 
         private static Resource CreateResource(params Booking[] bookings)
         {
-            return new Resource(Guid.NewGuid(), OpeningHours, bookings);
+            return new Resource(ResourceId.New(), OpeningHours, bookings);
         }
     }
 }

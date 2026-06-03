@@ -5,7 +5,7 @@ namespace BookingDDD.Core._1_ApplicationServices
 {
     public class BookingService
     {
-        private static readonly Guid ResourceId = Guid.Empty;
+        private static readonly ResourceId ResourceId = new(Guid.Empty);
 
         private readonly IBookingRepository _bookingRepository;
         private readonly OpeningHours _openingHours = new(8, 16);

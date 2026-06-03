@@ -4,6 +4,6 @@ namespace BookingDDD.Core._2_DomainServices
 {
     public interface IResourceRepository
     {
-        Task<Resource> GetAsync(Guid ResourceId);
+        Task<Resource> GetAsync(ResourceId ResourceId);
     }
 }

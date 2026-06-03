@@ -4,14 +4,14 @@ namespace BookingDDD.Core._3_Domain_Model
     {
         private readonly List<Booking> _bookings;
 
-        public Resource(Guid id, OpeningHours openingHours, IEnumerable<Booking> bookings)
+        public Resource(ResourceId id, OpeningHours openingHours, IEnumerable<Booking> bookings)
         {
             Id = id;
             OpeningHours = openingHours;
             _bookings = bookings.ToList();
         }
 
-        public Guid Id { get; }
+        public ResourceId Id { get; }
         public OpeningHours OpeningHours { get; }
 
         public Result<Booking> Book(BookingPeriod period)

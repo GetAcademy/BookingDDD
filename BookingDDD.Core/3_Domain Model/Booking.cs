@@ -24,7 +24,7 @@
 
         public Result<Booking> Cancel(DateTime now)
         {
-            if (now >= Period.Start)
+            if (Period.HasStarted(now))
             {
                 return Result<Booking>.Fail("Cannot cancel booking after it has started.");
             }

@@ -11,6 +11,11 @@
             Start = start;
         }
 
+        public bool HasStarted(DateTime now)
+        {
+            return Start <= now;
+        }
+
         public static Result<BookingPeriod> Create(DateTime start, DateTime end)
         {
             if (start >= end)

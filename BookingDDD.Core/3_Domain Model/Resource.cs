@@ -21,7 +21,7 @@ namespace BookingDDD.Core._3_Domain_Model
                 return Result<Booking>.Fail("Booking must be within opening hours.");
             }
 
-            if (_bookings.Where(booking => booking.IsActive).Any(period.IsOverlapping))
+            if (_bookings.Any(b => b.IsActive && b.IsOverlapping(period)))
             {
                 return Result<Booking>.Fail("Booking overlaps with an existing booking.");
             }

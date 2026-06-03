@@ -35,7 +35,12 @@
 
         public bool IsOverlapping(Booking otherBooking)
         {
-            return Period.IsOverlapping(otherBooking.Period);
+            return IsOverlapping(otherBooking.Period);
+        }
+
+        public bool IsOverlapping(BookingPeriod bookingPeriod)
+        {
+            return Period.IsOverlapping(bookingPeriod);
         }
     }
 }

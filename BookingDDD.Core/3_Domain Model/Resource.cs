@@ -4,19 +4,19 @@ namespace BookingDDD.Core._3_Domain_Model
     {
         private readonly List<Booking> _bookings;
 
+        public ResourceId Id { get; }
+        public OpeningHours OpeningHours { get; }
+
         public Resource(ResourceId id, OpeningHours openingHours, IEnumerable<Booking> bookings)
         {
             Id = id;
             OpeningHours = openingHours;
             _bookings = bookings.ToList();
         }
-
-        public ResourceId Id { get; }
-        public OpeningHours OpeningHours { get; }
-
+        
         public Result<Booking> Book(BookingPeriod period)
         {
-            if (!period.IsWithin(OpeningHours))
+            if (!period.IsIn(OpeningHours))
             {
                 return Result<Booking>.Fail("Booking must be within opening hours.");
             }

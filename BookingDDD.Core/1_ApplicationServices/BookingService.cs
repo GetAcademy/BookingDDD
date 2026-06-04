@@ -8,7 +8,7 @@ namespace BookingDDD.Core._1_ApplicationServices
         private static readonly ResourceId ResourceId = new(Guid.Empty);
 
         private readonly IBookingRepository _bookingRepository;
-        private readonly OpeningHours _openingHours = new(8, 16);
+        //private readonly OpeningHours _openingHours = new(8, 16);
         private IResourceRepository _resourceRepository;
 
         public BookingService(IBookingRepository bookingRepository, IResourceRepository resourceRepository)

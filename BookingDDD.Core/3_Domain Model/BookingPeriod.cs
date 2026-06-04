@@ -41,5 +41,10 @@
         {
             return Overlaps(booking.Period);
         }
+
+        public bool IsIn(OpeningHours openingHours)
+        {
+            return openingHours.Contains(this);
+        }
     }
 }

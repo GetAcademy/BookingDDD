@@ -16,7 +16,7 @@ namespace BookingDDD.Core._3_Domain_Model
 
         public Result<Booking> Book(BookingPeriod period)
         {
-            if (!OpeningHours.Contains(period))
+            if (!period.IsWithin(OpeningHours))
             {
                 return Result<Booking>.Fail("Booking must be within opening hours.");
             }

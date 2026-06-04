@@ -26,6 +26,7 @@ namespace BookingDDD.Core._1_ApplicationServices
                 return bookingResult;
             }
 
+            //await _resourceRepository.UpdateAsync(resource);
             await _bookingRepository.AddAsync(bookingResult.Value!);
             return bookingResult;
         }
